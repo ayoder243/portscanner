@@ -2,10 +2,10 @@ import socket
 import termcolor
 
 
-def scan(targets, ports):
+def scan(targets, port_list):
   for target in targets:
     print(termcolor.colored('\n[*] Scanning ' + target, 'green'))
-    for port in range(1, int(ports)):
+    for port in port_list:
       scan_port(target, port)
 
 def scan_port(ipaddress, port):
@@ -17,16 +17,21 @@ def scan_port(ipaddress, port):
   except:
     pass
 
+def create_port_list(ports):
+  port_list = []
+  for port in ports:
+    if '-' in port:
+      port = port.split('-')
+      start = int(port[0])
+      end = int(port[1])
+      port_range = [int(i) for i in range(start, end)]
+      port_list.extend(port_range)
+    else:
+      port_list.append(int(port))
+  return port_list
+
+
 targets = input('[*] Enter Target To Scan (split by ,): ').split(',')
-ports = input('[*] Enter How May Ports You Want To Scan: ')
-scan(targets, ports)
-
-
-
-######### Features to Add #############
-# 1. Use port ranges and comma separated values
-# 2. Get targets from file
-# 3. Get ports from file
-# 4. Use command line arguments instead of inputs
-# 5. Output to file
-# 6. Get banner of port
+ports = input('[*] Enter The Ports You Want To Scan (ranges(1-100) and csv): ').split(',')
+port_list = create_port_list(ports)
+scan(targets, port_list)
