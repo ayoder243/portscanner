@@ -1,5 +1,6 @@
 import socket
 import termcolor
+import sys
 
 
 def scan(targets, port_list):
@@ -30,8 +31,20 @@ def create_port_list(ports):
       port_list.append(int(port))
   return port_list
 
+target_file = ''
+port_file = ''
+targets = ''
+ports = ''
 
-targets = input('[*] Enter Target To Scan (split by ,): ').split(',')
-ports = input('[*] Enter The Ports You Want To Scan (ranges(1-100) and csv): ').split(',')
+for i in range(1, len(sys.argv), 2):
+  if sys.argv[i] == '--target-file':
+    target_file = sys.argv[i+1]
+  elif sys.argv[i] == '--port-file':
+    port_file = sys.argv[i+1]
+  elif sys.argv[i] == '--targets':
+    targets = sys.argv[i+1].split(',')
+  elif sys.argv[i] == '--ports':
+    ports = sys.argv[i+1].split(',')
+
 port_list = create_port_list(ports)
 scan(targets, port_list)
