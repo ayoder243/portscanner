@@ -14,7 +14,10 @@ python3 portscanner.py {options}
 
 
 ###------- Features to Add ---------###
- 1. Get targets from file
- 2. Get ports from file
- 3. Output to file
- 4. Get banner of port
+ 1. Commenting
+ 2. Documentation
+ 3. Accept IP ranges (10.0.0.1-10.0.0.25 or 10.0.0.1-25)
+ 4. Accept CIDR IP ranges
+ 5. Output to file 
+ 6. Get banner of port
+ 7. Error handling
